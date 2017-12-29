@@ -1,15 +1,18 @@
 package com.community.jboss.contactgroups.data;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Table;
-import com.orm.dsl.Unique;
+
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.util.UUID;
 
-@Table
-public class ContactNumber extends SugarRecord {
-    @Unique
-    private final UUID uid;
+@Entity
+public class ContactNumber {
+    @PrimaryKey @NonNull
+    private UUID uid;
     private int number;
     private Contact contact;
 
@@ -17,6 +20,7 @@ public class ContactNumber extends SugarRecord {
         this(-1, null);
     }
 
+    @Ignore
     public ContactNumber(int number, Contact contact) {
         this(number, contact, UUID.randomUUID());
     }
@@ -42,4 +46,8 @@ public class ContactNumber extends SugarRecord {
     public void setContact(Contact contact) {
         this.contact = contact;
     }
+
+    public UUID getUid() { return uid; }
+
+    public void setUid(UUID uid) { this.uid = uid; }
 }

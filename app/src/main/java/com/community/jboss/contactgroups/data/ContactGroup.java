@@ -1,14 +1,14 @@
 package com.community.jboss.contactgroups.data;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Table;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
-/**
- * Associative entity for a many-to-many relationship
- * between a Contact and a Group
- */
-@Table
-public class ContactGroup extends SugarRecord {
+
+@Entity
+public class ContactGroup {
+    @PrimaryKey @NonNull
     private Contact contact;
     private Group group;
 
@@ -16,6 +16,7 @@ public class ContactGroup extends SugarRecord {
         this(null, null);
     }
 
+    @Ignore
     public ContactGroup(Contact contact, Group group) {
         this.contact = contact;
         this.group = group;
@@ -25,7 +26,12 @@ public class ContactGroup extends SugarRecord {
         return group;
     }
 
+    public void setContact(Contact contact) { this.contact = contact; }
+
     public Contact getContact() {
         return contact;
     }
+
+    public void setGroup(Group group) { this.group = group; }
+
 }
