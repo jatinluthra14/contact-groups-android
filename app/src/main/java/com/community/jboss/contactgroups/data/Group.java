@@ -1,4 +1,4 @@
-package com.community.jboss.contactgroups.data.entities;
+package com.community.jboss.contactgroups.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
@@ -8,24 +8,23 @@ import android.support.annotation.NonNull;
 import java.util.UUID;
 
 @Entity
-public class Contact {
+public class Group {
     @PrimaryKey @NonNull
-    private final String id;
+    private UUID uid;
     private String name;
 
+    public Group() {
+        this(null);
+    }
+
     @Ignore
-    public Contact(String name) {
-        this(UUID.randomUUID().toString(), name);
+    public Group(String name) {
+        this(name, UUID.randomUUID());
     }
 
-    public Contact(@NonNull String id, String name) {
-        this.id = id;
+    private Group(String name, UUID uid) {
         this.name = name;
-    }
-
-    @NonNull
-    public String getId() {
-        return id;
+        this.uid = uid;
     }
 
     public String getName() {
@@ -35,4 +34,10 @@ public class Contact {
     public void setName(String name) {
         this.name = name;
     }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public void setUid(UUID uid) { this.uid = uid; }
 }
